@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  Global styles
+*/
+@layer base {
+
+  /* 
+    Body styles
+  */
+  body {
+    /* 集成 Tailwind 一些样式*
+    /* 
+      antialiased: 抗锯齿
+      bg-zinc-900: 背景颜色
+      text-zinc-300: 文本颜色
+      font-body: 字体
+    / */
+    @apply antialiased bg-zinc-900 text-zinc-300 font-body;
+  }
+}

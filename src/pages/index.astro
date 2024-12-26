@@ -1,0 +1,44 @@
+---
+import DefaultLayout from '../layouts/Default.astro'
+// 引入 Header 组件
+import { HeaderSection } from '../sections/Header'
+// 英雄
+import { HeroSection } from '../sections/Hero'
+// 功能卡片
+import { FeaturesCardsSection } from '../sections/FeaturesCards'
+// 功能网格bg-fuchsia-500
+import { FeaturesGrid } from '../sections/FeaturesGrid'
+// 最新帖子
+import { LatesPosts } from '../sections/LatesPosts'
+
+import { Testimonials } from '../sections/Testimonials'
+
+import { CallToAction } from '../sections/CallToAction'
+
+// 页脚
+import { Footer } from '../sections/Footer'
+
+// 数据
+import { getCollection } from 'astro:content'
+
+const posts = await getCollection('blog')
+const lastestPosts = posts
+  .sort((a, b) => {
+    if (a.data.pubDate.valueOf() == b.data.pubDate.valueOf()) {
+      return 0
+    }
+    return a.data.pubDate.valueOf() > b.data.pubDate.valueOf() ? -1 : 1
+  })
+  .slice(0, 4)
+---
+
+<DefaultLayout>
+  <HeaderSection />
+  <HeroSection />
+  <FeaturesCardsSection />
+  <FeaturesGrid />
+  <LatesPosts lastestPosts={lastestPosts} />
+  <Testimonials />
+  <CallToAction />
+  <Footer />
+</DefaultLayout>
