@@ -1,17 +1,25 @@
+import { useRef } from 'react'
 import { Circle } from '../components/Circle'
 import { CutCornerButton } from '../components/CutCornerButton'
 import { Hexagon } from '../components/Hexagon'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 export const CallToAction = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress: sectionScrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  })
+  const sectionRotate = useTransform(sectionScrollYProgress, [0, 1], [45, -45])
   return (
-    <section className="py-80 overflow-hidden">
+    <section className="py-80 overflow-hidden" ref={sectionRef}>
       <div className="container">
         <div className="relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Hexagon className="size-[700px]" />
+            <Hexagon size={700} />
           </div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Hexagon className="size-[1100px]" />
+            <Hexagon size={1100} reverse duration={60} />
           </div>
           {/* 
               绘制一个立方体
@@ -24,12 +32,26 @@ export const CallToAction = () => {
                 outline-fuchsia-500: 轮廓颜色
               */}
             <Circle className="absolute left-[0px] top-[-400px] z-40">
-              <img src="../../public/assets/images/cuboid.png" alt="cube" className="size-[140px]" />
+              <motion.img
+                style={{
+                  rotate: sectionRotate,
+                }}
+                src="../../public/assets/images/cuboid.png"
+                alt="cube"
+                className="size-[140px]"
+              />
             </Circle>
           </div>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ">
             <Circle className="absolute left-[-630px] top-[-80px] z-40">
-              <img src="../../public/assets/images/cylinder.png" alt="cube" className="size-[140px]" />
+              <motion.img
+                style={{
+                  rotate: sectionRotate,
+                }}
+                src="../../public/assets/images/cylinder.png"
+                alt="cube"
+                className="size-[140px]"
+              />
             </Circle>
           </div>
 

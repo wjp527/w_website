@@ -1,5 +1,9 @@
 ---
-import "../styles/global.css";
+import { CallToAction } from '../sections/CallToAction'
+import { Footer } from '../sections/Footer'
+import { HeaderSection } from '../sections/Header'
+import { Testimonials } from '../sections/Testimonials'
+import '../styles/global.css'
 ---
 
 <!doctype html>
@@ -10,12 +14,13 @@ import "../styles/global.css";
     <title>Blockchain Blog - Frontend Tribe</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <HeaderSection client:load />
     <slot />
+    <Testimonials client:load />
+    <CallToAction client:load />
+    <Footer client:load />
   </body>
 </html>

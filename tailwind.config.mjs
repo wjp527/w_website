@@ -21,5 +21,8 @@ export default {
     },
     extend: {},
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    // 引入 typography 插件
+    require("@tailwindcss/typography"),
+  ],
 };

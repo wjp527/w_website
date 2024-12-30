@@ -1,20 +1,66 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { type CollectionEntry, getCollection } from 'astro:content'
+import DefaultLayout from '../../layouts/Default.astro'
+import InterioHero from '../../components/InterioHero.astro'
+import { Tag } from '../../components/Tag'
+import { getPostColorFromCategory } from '../../utils/postUtils'
+import InteriorContent from '../../components/InteriorContent.astro'
 
+/*
+  获取博客详情页的路径
+  slug: 博客的slug
+*/
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = await getCollection('blog')
+  console.log(posts, 'post.slug')
+  return posts.map((post: any) => ({
+    params: { slug: post.slug },
+    props: post,
+  }))
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<'blog'>
 
-const post = Astro.props;
-const { Content } = await post.render();
+const post: Props = Astro.props
+const {
+  data: {
+    category,
+    title,
+    description,
+    author: { name, title: authorTitle, image },
+  },
+} = post
+
+// 获取博客内容【md内容】
+const { Content } = await post.render()
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<!-- 
+  博客详情页
+-->
+<DefaultLayout>
+  <InterioHero>
+    <div class="relative z-10">
+      <div class="flex justify-center">
+        <Tag color={getPostColorFromCategory(category)}>{category}</Tag>
+      </div>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl mt-4 font-bold text-center">{title}</h1>
+      <!-- 
+        max-w-xl mx-auto: 最大宽度为 1024px，并居中显示
+      -->
+      <p class="text-zinc-400 text-xl md:text-2xl text-center mt-6 max-w-xl mx-auto">{description}</p>
+
+      <div class="flex justify-center items-center flex-col gap-4 mt-8">
+        <img src={image} alt={name} class="w-10 h-10 rounded-full" />
+        <p>{name}</p>
+        <p>{authorTitle}</p>
+      </div>
+    </div>
+  </InterioHero>
+  <section>
+    <InteriorContent>
+      <div class="prose prose-invert prose-lg mx-auto prose-zinc prose-headings:font-heading prose-headings:font-black prose-h2:text-3xl prose-h2:md:text-4xl prose-h2:lg:text-5xl prose-h3:text-2xl prose-h3:md:text-3xl prose-h3:lg:text-4xl">
+        <Content />
+      </div>
+    </InteriorContent>
+  </section>
+</DefaultLayout>

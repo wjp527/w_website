@@ -1,6 +1,8 @@
 import { twMerge } from 'tailwind-merge'
 import { TextButton } from '../components/TextButton'
 import { Card } from '../components/Card'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 // 卡片数据
 const cardData = [
   {
@@ -34,18 +36,43 @@ const cardData = [
 ]
 
 export const FeaturesCardsSection = () => {
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0)
+
+  const [isHovered, setIsHovered] = useState(false)
+  useEffect(() => {
+    if (isHovered) return
+    // 设置一个定时器，每隔3秒，切换一次卡片
+    const timeout = setTimeout(() => {
+      setSelectedCardIndex(curr => (curr == cardData.length - 1 ? 0 : curr + 1))
+    }, 3000)
+    // 返回一个函数，清除定时器
+    return () => clearTimeout(timeout)
+  }, [selectedCardIndex, isHovered])
+
   return (
     <section className="py-24 overflow-x-clip md:-mt-28">
-      <div className="container">
+      <div className="container  overflow-hidden">
         <h2 className="font-heading text-center text-4xl font-bold md:text-5xl lg:text-6xl">Tell me about my project</h2>
-        <div className="mt-36 lg:mt-48 flex">
-          <div className="flex flex-none gap-8">
-            {cardData.map(item => {
+        <div className="mt-36 lg:mt-48 flex ">
+          <div className="flex flex-none gap-8  ">
+            {cardData.map((item, index) => {
               return (
-                <Card key={item.id} color={item.color} className="max-w-xs md:max-w-md">
-                  <div className="flex justify-center -mt-20">
-                    <div className="inline-flex relative">
-                      {/* 
+                <motion.div
+                  className="group"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  animate={{
+                    translateX: `calc((-100% - 2rem) * ${selectedCardIndex})`,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    ease: 'linear',
+                  }}
+                >
+                  <Card key={item.id} color={item.color} className="max-w-xs md:max-w-md">
+                    <div className="flex justify-center -mt-20">
+                      <div className="inline-flex relative">
+                        {/* 
       
                         图片阴影: 
       
@@ -57,13 +84,13 @@ export const FeaturesCardsSection = () => {
                         中心部分变得完全可见（黑色），而周围部分则变得透明
     
                     */}
-                      <div
-                        className="absolute w-full h-4 top-[calc(100%+16px)] bg-zinc-900/70 rounded-[100%] [mask-image:radial-gradient(closest-side,black,transparent)]
+                        <div
+                          className="absolute w-full h-4 top-[calc(100%+16px)] bg-zinc-900/70 rounded-[100%] [mask-image:radial-gradient(closest-side,black,transparent)]
                     group-hover:bg-zinc-950/30 transition duration-300
                     "
-                      ></div>
+                        ></div>
 
-                      {/* 
+                        {/* 
                     group-hover:-translate-y-6 transition duration-300: 
                     group-hover: 当鼠标悬浮在元素上时，添加的类
                     -translate-y-6: 向下移动 6px
@@ -71,12 +98,13 @@ export const FeaturesCardsSection = () => {
                     鼠标触碰的适合没有生效，必须要鼠标进行点击，才有效果，怎么回事
                     
                     */}
-                      <img className="size-36 group-hover:-translate-y-6 transition duration-300" src={item.image} alt="pill" />
+                        <img className="size-36 group-hover:-translate-y-6 transition duration-300" src={item.image} alt="pill" />
+                      </div>
                     </div>
-                  </div>
-                  <h3 className="font-bold text-3xl text-center  mt-12">{item.title}</h3>
-                  <p className="text-lg mt-4 text-zinc-400">{item.description}</p>
-                </Card>
+                    <h3 className="font-bold text-3xl text-center  mt-12">{item.title}</h3>
+                    <p className="text-lg mt-4 text-zinc-400">{item.description}</p>
+                  </Card>
+                </motion.div>
               )
             })}
           </div>
@@ -85,7 +113,7 @@ export const FeaturesCardsSection = () => {
         <div className="flex justify-center mt-10">
           <div className=" bg-zinc-950 inline-flex gap-4 rounded-full p-1">
             {cardData.map((_, i) => {
-              return <div key={i} className="size-2.5 bg-zinc-500 rounded-full m-2"></div>
+              return <div key={i} onClick={() => setSelectedCardIndex(i)} className={twMerge('size-2.5 bg-zinc-500 rounded-full m-2 cursor-pointer', selectedCardIndex == i ? 'bg-zinc-300' : 'bg-zinc-500')}></div>
             })}
           </div>
         </div>

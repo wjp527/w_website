@@ -33,12 +33,11 @@ const lastestPosts = posts
 ---
 
 <DefaultLayout>
-  <HeaderSection />
-  <HeroSection />
-  <FeaturesCardsSection />
-  <FeaturesGrid />
-  <LatesPosts lastestPosts={lastestPosts} />
-  <Testimonials />
-  <CallToAction />
-  <Footer />
+  <!-- 
+    client:load: 在页面加载时，立即加载HeroSection组件  
+  -->
+  <HeroSection client:load />
+  <FeaturesCardsSection client:load />
+  <FeaturesGrid client:load />
+  <LatesPosts lastestPosts={lastestPosts} client:load />
 </DefaultLayout>

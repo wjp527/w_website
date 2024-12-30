@@ -1,0 +1,35 @@
+---
+import DefaultLayout from '../layouts/Default.astro'
+import InterioHero from '../components/InterioHero.astro'
+import InteriorContent from '../components/InteriorContent.astro'
+
+// 交互式表单
+import FormInteraction from '../components/FormInteraction.tsx'
+---
+
+<DefaultLayout>
+  <InterioHero className="py-20 ">
+    <p class="text-zinc-500 uppercase font-extrabold tracking-wider text-center">Let's talk</p>
+    <h1 class="text-5xl md:text-6xl lg:text-7xl mt-4 font-bold text-center">Contact us</h1>
+    <p class="text-zinc-400 text-xl md:text-2xl text-center mt-6 max-w-xl mx-auto">We are looking forward to hearing from you.</p>
+  </InterioHero>
+
+  <InteriorContent>
+    <!-- <div class="pb-[1000px]">
+      <h2>What can we help you with?</h2>
+      <form>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" />
+      </form>
+    </div> -->
+    <!-- <div
+      style={{
+        backgroundColor: '#171717',
+        minHeight: '100vh',
+        paddingTop: '10rem',
+      }}
+    > -->
+    <!-- <FormInteraction /> -->
+    <!-- </div> -->
+  </InteriorContent>
+</DefaultLayout>

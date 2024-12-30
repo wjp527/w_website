@@ -1,0 +1,16 @@
+---
+// 引入 Hexagon 组件
+import { Hexagon } from './Hexagon'
+---
+
+<section class="py-20 relative top-40 mb-[220px] overflow-x-clip">
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <Hexagon size={800} client:load />
+  </div>
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <Hexagon size={1100} client:load reverse duration={60} />
+  </div>
+  <div class="container">
+    <slot />
+  </div>
+</section>

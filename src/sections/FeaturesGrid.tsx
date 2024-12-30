@@ -1,8 +1,53 @@
 // 引入切口按钮
+import { useRef } from 'react'
 import { CutCornerButton } from '../components/CutCornerButton'
 import { TextButton } from '../components/TextButton'
+import { motion, useScroll, useTransform } from 'framer-motion'
 const listItems = ["Whether you're animating UI, SVG or creating immersive WebGL experiences, GSAP has your back.", 'Nice and Easy Easings', 'Add personality to your animations with a huge variety of super plug and play eases or build your own custom curves.']
 export const FeaturesGrid = () => {
+  const torusKnotRef = useRef(null)
+
+  // 动画
+  const { scrollYProgress: torusKnotScrollYProgress } = useScroll({
+    target: torusKnotRef,
+    offset: ['start end', 'end start'],
+  })
+
+  // 平移
+  const torusKnotTranslateY = useTransform(torusKnotScrollYProgress, [0, 1], [100, -100])
+
+  // 旋转
+  const toursKnotRotate = useTransform(torusKnotScrollYProgress, [0, 1], [30, -30])
+
+  const firstHemisphereRef = useRef(null)
+  const { scrollYProgress: firstHemisphereScrollYProgress } = useScroll({
+    target: firstHemisphereRef,
+    offset: ['start end', 'end start'],
+  })
+
+  const firstHemisphereTranslateY = useTransform(firstHemisphereScrollYProgress, [0, 1], [50, -50])
+
+  const firstHemisphereRotate = useTransform(firstHemisphereScrollYProgress, [0, 1], [-20, -50])
+
+  // cone
+  const coneRef = useRef(null)
+  const { scrollYProgress: coneScrollYProgress } = useScroll({
+    target: coneRef,
+    offset: ['start end', 'end start'],
+  })
+
+  const coneTranslateY = useTransform(coneScrollYProgress, [0, 1], [100, -100])
+  const coneRotate = useTransform(coneScrollYProgress, [0, 1], [12, 45])
+
+  const secondHemisphereRef = useRef(null)
+  const { scrollYProgress: secondHemisphereScrollYProgress } = useScroll({
+    target: secondHemisphereRef,
+    offset: ['start end', 'end start'],
+  })
+
+  const secondHemisphereTranslateY = useTransform(secondHemisphereScrollYProgress, [0, 1], [50, -50])
+  const secondHemisphereRotate = useTransform(secondHemisphereScrollYProgress, [0, 1], [-20, 10])
+
   return (
     <section className="py-24 overflow-x-clip">
       <div className="container  ">
@@ -40,11 +85,29 @@ export const FeaturesGrid = () => {
               </div>
               <div className="hidden md:block">
                 <div className="relative z-0 inline-flex items-center justify-center">
-                  <img className="size-96 max-w-none" src="../../public/assets/images/torus-knot.png" alt="" />
+                  <motion.img
+                    ref={torusKnotRef}
+                    style={{
+                      translateY: torusKnotTranslateY,
+                      rotate: toursKnotRotate,
+                    }}
+                    className="size-96 max-w-none"
+                    src="../../public/assets/images/torus-knot.png"
+                    alt=""
+                  />
                   {/* 
                       scale-x-[-1]: 水平翻转
                   */}
-                  <img className="absolute top-3/4 -z-10 scale-x-[-1]" src="../../public/assets/images/hemisphere.png" alt="" />
+                  <motion.img
+                    ref={firstHemisphereRef}
+                    style={{
+                      translateY: firstHemisphereTranslateY,
+                      rotate: firstHemisphereRotate,
+                    }}
+                    className="absolute top-3/4 -z-10 scale-x-[-1]"
+                    src="../../public/assets/images/hemisphere.png"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -53,8 +116,26 @@ export const FeaturesGrid = () => {
               <div className="hidden md:block">
                 <div className="relative">
                   <div className="absolute right-0 rotate-12 z-0">
-                    <img className="size-96 max-w-none" src="../../public/assets/images/cone.png" alt="" />
-                    <img className="absolute top-3/4 -z-10" src="../../public/assets/images/hemisphere.png" alt="" />
+                    <motion.img
+                      ref={coneRef}
+                      style={{
+                        translateY: coneTranslateY,
+                        rotate: coneRotate,
+                      }}
+                      className="size-96 max-w-none"
+                      src="../../public/assets/images/cone.png"
+                      alt=""
+                    />
+                    <motion.img
+                      ref={secondHemisphereRef}
+                      style={{
+                        translateY: secondHemisphereTranslateY,
+                        rotate: secondHemisphereRotate,
+                      }}
+                      className="absolute top-3/4 -z-10"
+                      src="../../public/assets/images/hemisphere.png"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
