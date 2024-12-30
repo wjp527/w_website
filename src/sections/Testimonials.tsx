@@ -30,12 +30,13 @@ export const Testimonials = () => {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 md:gap-8 lg:gap-12">
           {testimonials.map((_, index) => (
-            <div>
+            <div       key={_.id}>
               {/* 
               blockquote: 引用
               cite: 引用来源
             */}
               <motion.blockquote
+          
                 // initial: 初始状态
                 initial={{
                   opacity: 0,
@@ -57,7 +58,6 @@ export const Testimonials = () => {
                   ease: 'easeOut',
                   duration: 1,
                 }}
-                key={_.id}
                 className={twMerge(index === 2 && 'md:hidden lg:block')}
               >
                 <p className="font-heading text-3xl lg:text-4xl font-black">&ldquo;{_.content}&rdquo;</p>

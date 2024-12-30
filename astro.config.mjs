@@ -11,4 +11,11 @@ export default defineConfig({
     }),
     react(),
   ],
+  vite: {
+    resolve: {
+      alias: {
+        '@': '/src'
+      }
+    }
+  }
 });

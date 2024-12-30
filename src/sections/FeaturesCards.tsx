@@ -1,64 +1,100 @@
 import { twMerge } from 'tailwind-merge'
-import { TextButton } from '../components/TextButton'
-import { Card } from '../components/Card'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-// 卡片数据
-const cardData = [
-  {
-    id: 0,
-    title: 'OJ判题系统',
-    description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
-    image: '../../public/assets/images/pill.png',
-    color: 'fuchsia',
-  },
-  {
-    id: 1,
-    title: 'BI数据分析系统',
-    description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
-    image: '../../public/assets/images/cuboid.png',
-    color: 'lime',
-  },
-  {
-    id: 2,
-    title: 'API开放平台',
-    description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
-    image: '../../public/assets/images/cone.png',
-    color: 'cyan',
-  },
-  {
-    id: 3,
-    title: '伙伴匹配系统',
-    description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
-    image: '../../public/assets/images/icosahedron.png',
-    color: 'violet',
-  },
-]
+import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
 
 export const FeaturesCardsSection = () => {
   const [selectedCardIndex, setSelectedCardIndex] = useState(0)
-
+  const [cardData, setCardData] = useState([
+    {
+      id: 0,
+      title: 'OJ判题系统',
+      description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
+      image: 'https://pic.code-nav.cn/user_avatar/1840273607343382530/thumbnail/tezgKSz2rGsMrnWe.jpg',
+      // 技术栈
+      techStack: ['React', 'Tailwind', 'Astro'],
+      color: 'fuchsia',
+      // 立即体验
+      experienceImmediately: 'https://github.com/wjp527',
+      // 了解更多
+      learnMore: 'https://github.com/wjp527',
+    },
+    {
+      id: 1,
+      title: 'BI数据分析系统',
+      description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
+      image: 'https://img2.baidu.com/it/u=1020952940,3600657907&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
+      // 技术栈
+      techStack: ['React', 'Tailwind', 'Astro'],
+      color: 'lime',
+      // 立即体验
+      experienceImmediately: 'https://github.com/wjp527',
+      // 了解更多
+      learnMore: 'https://github.com/wjp527',
+    },
+    {
+      id: 2,
+      title: 'API开放平台',
+      description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
+      image: 'https://pic.code-nav.cn/user_avatar/1840273607343382530/thumbnail/tezgKSz2rGsMrnWe.jpg',
+      // 技术栈
+      techStack: ['React', 'Tailwind', 'Astro'],
+      color: 'cyan',
+      // 立即体验
+      experienceImmediately: 'https://github.com/wjp527',
+      // 了解更多
+      learnMore: 'https://github.com/wjp527',
+    },
+    {
+      id: 3,
+      title: '伙伴匹配系统',
+      description: 'OJ = Online Judge 在线判题评测系统,用户可以选择题目，在线做题，编写代码并且提交代码；系统会对用户提交的代码，根据我们出题人设置的答案，来判断用户的提交结果是否正确 ACM(程序设计赛)，也还是需要依赖判题系统来检测参赛者的答案是否合理',
+      image: 'https://img2.baidu.com/it/u=1020952940,3600657907&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=800',
+      // 技术栈
+      techStack: ['React', 'Tailwind', 'Astro'],
+      color: 'violet',
+      // 立即体验
+      experienceImmediately: 'https://github.com/wjp527',
+      // 了解更多
+      learnMore: 'https://github.com/wjp527',
+    },
+  ])
   const [isHovered, setIsHovered] = useState(false)
+  // 自动播放逻辑
   useEffect(() => {
     if (isHovered) return
-    // 设置一个定时器，每隔3秒，切换一次卡片
+
     const timeout = setTimeout(() => {
-      setSelectedCardIndex(curr => (curr == cardData.length - 1 ? 0 : curr + 1))
+      setSelectedCardIndex(prevIndex => prevIndex + 1)
     }, 3000)
-    // 返回一个函数，清除定时器
+
     return () => clearTimeout(timeout)
   }, [selectedCardIndex, isHovered])
+
+  // 动态追加数据，当滚动到最后一个时
+  useEffect(() => {
+    console.log(selectedCardIndex)
+    if (selectedCardIndex >= cardData.length - 1) {
+      const newCards = cardData.map(card => ({
+        ...card,
+        id: cardData.length + card.id, // 确保新卡片的 ID 是唯一的
+      }))
+      setSelectedCardIndex(0)
+      setCardData(newCards)
+    }
+  }, [selectedCardIndex, cardData])
 
   return (
     <section className="py-24 overflow-x-clip md:-mt-28">
       <div className="container  overflow-hidden">
-        <h2 className="font-heading text-center text-4xl font-bold md:text-5xl lg:text-6xl">Tell me about my project</h2>
+        <h2 className="font-heading text-center text-4xl font-bold md:text-5xl lg:text-6xl">我的项目</h2>
         <div className="mt-36 lg:mt-48 flex ">
           <div className="flex flex-none gap-8  ">
             {cardData.map((item, index) => {
               return (
                 <motion.div
-                  className="group"
+                  key={item.id}
+                  className="group w-full px-4 md:px-6"
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                   animate={{
@@ -69,41 +105,73 @@ export const FeaturesCardsSection = () => {
                     ease: 'linear',
                   }}
                 >
-                  <Card key={item.id} color={item.color} className="max-w-xs md:max-w-md">
-                    <div className="flex justify-center -mt-20">
-                      <div className="inline-flex relative">
-                        {/* 
-      
-                        图片阴影: 
-      
-                        详细讲解: [mask-image:radial-gradient(closest-side,black,transparent)] 
-                        结合了 渐变 和 遮罩图像（mask-image）功能
-                        mask-image: 遮罩图像
-                        radial-gradient(): 径向渐变 （从中心向外扩展的渐变）
-                        closest-side: 渐变从圆的中心开始，向圆的边缘扩展   
-                        中心部分变得完全可见（黑色），而周围部分则变得透明
-    
-                    */}
-                        <div
-                          className="absolute w-full h-4 top-[calc(100%+16px)] bg-zinc-900/70 rounded-[100%] [mask-image:radial-gradient(closest-side,black,transparent)]
-                    group-hover:bg-zinc-950/30 transition duration-300
-                    "
-                        ></div>
+                  <CardContainer className="w-full">
+                    <CardBody
+                      className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] 
+      dark:bg-black dark:border-white/[0.2] border-black/[0.1] 
+      w-[90vw] sm:w-[80vw] md:w-[40vw] lg:w-[20vw]  
+      h-auto rounded-xl p-4 sm:p-6 border bg-gray-50"
+                    >
+                      {/* 主标题 */}
+                      <CardItem translateZ="50" className="text-xl sm:text-2xl font-bold text-neutral-600 dark:text-white">
+                        {item.title}
+                      </CardItem>
 
-                        {/* 
-                    group-hover:-translate-y-6 transition duration-300: 
-                    group-hover: 当鼠标悬浮在元素上时，添加的类
-                    -translate-y-6: 向下移动 6px
-                    transition duration-300: 过渡效果，持续时间 300ms
-                    鼠标触碰的适合没有生效，必须要鼠标进行点击，才有效果，怎么回事
-                    
-                    */}
-                        <img className="size-36 group-hover:-translate-y-6 transition duration-300" src={item.image} alt="pill" />
-                      </div>
-                    </div>
-                    <h3 className="font-bold text-3xl text-center  mt-12">{item.title}</h3>
-                    <p className="text-lg mt-4 text-zinc-400">{item.description}</p>
-                  </Card>
+                      {/* 副标题/描述 */}
+                      <CardItem as="p" translateZ={60} className="text-neutral-500 text-sm max-w-sm mt-4 dark:text-neutral-300">
+                        {item.description}
+                      </CardItem>
+
+                      {/* 图片展示 */}
+                      <CardItem translateZ={100} className="w-full mt-6" onClick={() => setSelectedCardIndex(index)}>
+                        <img src={item.image} className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl" alt="3D效果展示" />
+                      </CardItem>
+
+                      {/* 特性列表 */}
+                      <CardItem translateZ={80} className="mt-6 grid grid-cols-2 gap-4">
+                        {item.techStack.map((tech, index) => {
+                          return (
+                            <div key={index} className="flex items-center gap-2">
+                              <svg className="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span className="text-sm text-neutral-600 dark:text-neutral-300">{tech}</span>
+                            </div>
+                          )
+                        })}
+                      </CardItem>
+
+                      {/* 标签/技术栈 */}
+                      <CardItem translateZ={70} className="mt-6 flex flex-wrap gap-2">
+                        <span className="px-3 py-1 text-xs bg-emerald-100 text-emerald-600 rounded-full">React</span>
+                        <span className="px-3 py-1 text-xs bg-blue-100 text-blue-600 rounded-full">Tailwind</span>
+                        <span className="px-3 py-1 text-xs bg-purple-100 text-purple-600 rounded-full">Astro</span>
+                      </CardItem>
+
+                      {/* 按钮组 */}
+                      <CardItem translateZ={90} className="mt-8 flex items-center justify-between gap-4">
+                        <button className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-sm font-bold" onClick={() => window.open(item.experienceImmediately, '_blank')}>
+                          立即体验
+                        </button>
+                        <button className="px-4 py-2 rounded-xl bg-emerald-500 text-white text-sm font-bold" onClick={() => window.open(item.learnMore, '_blank')}>
+                          了解更多 →
+                        </button>
+                      </CardItem>
+
+                      {/* 底部信息 */}
+                      <CardItem translateZ={60} className="mt-6 pt-4 border-t border-neutral-200 dark:border-neutral-700">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-700" />
+                            <div>
+                              <p className="text-sm font-medium text-neutral-700 dark:text-neutral-200">作者名称</p>
+                              <p className="text-xs text-neutral-500">2024.03.14</p>
+                            </div>
+                          </div>
+                        </div>
+                      </CardItem>
+                    </CardBody>
+                  </CardContainer>
                 </motion.div>
               )
             })}
