@@ -11,6 +11,11 @@ type Props = ComponentPropsWithoutRef<'button'> & {
   children: React.ReactNode
 }
 
+/**
+ * 绘制一个带有切角效果的按钮
+ * @param props
+ * @returns
+ */
 export const CutCornerButton = (props: Props) => {
   const { className, children } = props
   return (

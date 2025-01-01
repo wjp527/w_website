@@ -1,8 +1,8 @@
 // 引入 Tailwind 样式
-import '../styles/global.css'
+import '../../styles/global.css'
 // 引入切口按钮
-import { CutCornerButton } from '../components/CutCornerButton'
-import { Hexagon } from '../components/Hexagon'
+import { CutCornerButton } from '../../components/CutCornerButton'
+import { Hexagon } from '../../components/Hexagon'
 import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -55,7 +55,10 @@ export const HeaderSection = () => {
           <div className="flex justify-between items-center h-24 md:h-28">
             {/* 左侧内容 */}
             <div>
-              <img src="../../public/assets/images/logo.svg" alt="logo" />
+              <motion.a href="/" className="inline-block cursor-pointer" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                {/* 使用背景图片 */}
+                <div className="bg-cover bg-center bg-no-repeat bg-[url('/logo.png')] size-[100px]"></div>
+              </motion.a>
             </div>
             {/* 
              右侧内容

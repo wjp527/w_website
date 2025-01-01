@@ -1,0 +1,13 @@
+---
+import DefaultLayout from '@/layouts/DefaultLayout.astro'
+import MarqueeReviews from '@/components/MarqueeReviews'
+---
+
+<DefaultLayout title="用户评价">
+  <main class="min-h-screen">
+    <div class="py-20">
+      <h1 class="text-center text-4xl font-bold mb-10">用户怎么说</h1>
+      <MarqueeReviews client:load />
+    </div>
+  </main>
+</DefaultLayout>

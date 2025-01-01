@@ -1,7 +1,7 @@
 // 引入切口按钮
 import { useRef } from 'react'
-import { CutCornerButton } from '../components/CutCornerButton'
-import { TextButton } from '../components/TextButton'
+import { CutCornerButton } from '../../components/CutCornerButton'
+import { TextButton } from '../../components/TextButton'
 import { motion, useScroll, useTransform } from 'framer-motion'
 const listItems = ["Whether you're animating UI, SVG or creating immersive WebGL experiences, GSAP has your back.", 'Nice and Easy Easings', 'Add personality to your animations with a huge variety of super plug and play eases or build your own custom curves.']
 export const FeaturesGrid = () => {

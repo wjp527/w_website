@@ -1,12 +1,14 @@
 // 引入切口按钮
-import { CutCornerButton } from '../components/CutCornerButton'
+import { CutCornerButton } from '../../components/CutCornerButton'
 // 引入描边组件
-import { Hexagon } from '../components/Hexagon'
-import { Circle } from '../components/Circle'
+import { Hexagon } from '../../components/Hexagon'
+import { Circle } from '../../components/Circle'
 
 // 引入动画库
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+
+import { TypingAnimation } from '../../components/TypingAnimation'
 
 export const HeroSection = () => {
   // 思路：
@@ -65,7 +67,15 @@ export const HeroSection = () => {
     <section className="py-24 md:py-52 overflow-x-clip">
       <div className="container">
         {/* tracking-wider: 字间距 */}
-        <p className="uppercase text-center text-zinc-500 font-extrabold tracking-wider ">Rapidly build modern websites.</p>
+        <div className="uppercase text-center text-zinc-500 font-extrabold tracking-wider ">
+          {/* 
+            duration: 动画持续时间
+            delay: 动画延迟时间
+          */}
+          <TypingAnimation duration={50} delay={0}>
+            π
+          </TypingAnimation>
+        </div>
         {/*
           font-extrabold: 字体加粗
           font-black: 字体加粗 
@@ -74,11 +84,23 @@ export const HeroSection = () => {
           text-4xl: 字体大小
           mt-6: 上外边距   
         */}
-        <h1 className="font-extrabold font-heading text-center text-5xl mt-6 md:text-6xl lg:text-7xl max-w-3xl mx-auto">Rapidly build modern websites.</h1>
+        <div className="font-extrabold font-heading text-center text-5xl mt-6 md:text-6xl lg:text-7xl max-w-3xl mx-auto">
+          <TypingAnimation duration={50} delay={100}>
+            Welcome to my personal website
+          </TypingAnimation>
+        </div>
         {/* 
          max-w-xl mx-auto: 最大宽度为1024px，水平居中
         */}
-        <p className="text-center text-zinc-400 my-4 text-xl md:text-2xl max-w-xl lg:text-3xl mx-auto">“Tailwind “Tailwind CSS CSS is is the the only only framework </p>
+        <div className="text-center text-zinc-400 my-4 text-xl md:text-2xl max-w-xl lg:text-3xl mx-auto">
+          {/* 
+          duration: 动画持续时间
+          delay: 动画延迟时间
+          */}
+          <TypingAnimation duration={100} delay={2000}>
+            Start showing
+          </TypingAnimation>
+        </div>
 
         {/* 
           绘制一个切口按钮

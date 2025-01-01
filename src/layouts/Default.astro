@@ -1,17 +1,24 @@
 ---
-import { CallToAction } from '../sections/CallToAction'
-import { Footer } from '../sections/Footer'
-import { HeaderSection } from '../sections/Header'
-import { Testimonials } from '../sections/Testimonials'
+import { CallToAction } from '../sections/CallToAction/CallToAction'
+import { Footer } from '../sections/Footer/Footer'
+import { HeaderSection } from '../sections/Header/Header'
+import { Testimonials } from '../sections/Testimonials/Testimonials'
+import { BackToTop } from '../components/BackToTop/BackToTop'
+
 import '../styles/global.css'
 ---
 
 <!doctype html>
+<!-- 
+  开启深色模式：  class="dark"
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blockchain Blog - Frontend Tribe</title>
+    <title>wCoder</title>
+    <!-- 添加logo图标 -->
+    <link rel="icon" href="/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
@@ -22,5 +29,6 @@ import '../styles/global.css'
     <Testimonials client:load />
     <CallToAction client:load />
     <Footer client:load />
+    <BackToTop client:load />
   </body>
 </html>

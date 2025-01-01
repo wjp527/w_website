@@ -1,7 +1,7 @@
 import { useRef } from 'react'
-import { Circle } from '../components/Circle'
-import { CutCornerButton } from '../components/CutCornerButton'
-import { Hexagon } from '../components/Hexagon'
+import { Circle } from '../../components/Circle'
+import { CutCornerButton } from '../../components/CutCornerButton'
+import { Hexagon } from '../../components/Hexagon'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 export const CallToAction = () => {

@@ -4,7 +4,8 @@ export const Footer = () => {
       <div className="container">
         <div className="flex justify-between items-center">
           <div>
-            <img src="/assets/images/logo.svg" alt="logo" className="size-[100px]" />
+            {/* 使用背景图片 */}
+            <div className="bg-cover bg-center bg-no-repeat bg-[url('/logo.png')] size-[100px]"></div>
           </div>
           <nav className="hidden md:flex text-zinc-500 font-heading font-black  gap-12">
             <a href="">Home</a>

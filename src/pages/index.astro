@@ -1,23 +1,20 @@
 ---
 import DefaultLayout from '../layouts/Default.astro'
 // 引入 Header 组件
-import { HeaderSection } from '../sections/Header'
+import { HeaderSection } from '../sections/Header/Header'
 // 英雄
-import { HeroSection } from '../sections/Hero'
+import { HeroSection } from '../sections/Hero/Hero'
 // 功能卡片
-import { FeaturesCardsSection } from '../sections/FeaturesCards'
+import { FeaturesCardsSection } from '../sections/FeaturesCards/FeaturesCards'
 // 功能网格bg-fuchsia-500
-import { FeaturesGrid } from '../sections/FeaturesGrid'
+import { FeaturesGrid } from '../sections/FeaturesGrid/FeaturesGrid'
 // 最新帖子
-import { LatesPosts } from '../sections/LatesPosts'
-
-import { Testimonials } from '../sections/Testimonials'
-
-import { CallToAction } from '../sections/CallToAction'
-
-// 页脚
-import { Footer } from '../sections/Footer'
-
+import { LatesPosts } from '../sections/LatesPosts/LatesPosts'
+// 技术栈展示
+import MarqueeReviews from '../components/MarqueeReviews'
+// 经历历程
+// import { TimelineSection } from '../sections/Timeline/TimelineSection'
+import { TimeLineContent } from '../sections/TimeLine/TimeLineContent'
 // 数据
 import { getCollection } from 'astro:content'
 
@@ -32,12 +29,20 @@ const lastestPosts = posts
   .slice(0, 4)
 ---
 
-<DefaultLayout
-  ><!-- 
+<DefaultLayout>
+  <!-- 
     client:load: 在页面加载时，立即加载HeroSection组件  
   -->
   <HeroSection client:load />
+  <!-- 功能卡片 -->
   <FeaturesCardsSection client:load />
+  <!-- 功能网格 -->
   <FeaturesGrid client:load />
+  <!-- 最新帖子 -->
   <LatesPosts lastestPosts={lastestPosts} client:load />
+  <!-- 技术栈展示 -->
+  <MarqueeReviews client:load />
+  <!-- 经历历程 -->
+  <!-- <TimelineSection client:load /> -->
+  <TimeLineContent client:load />
 </DefaultLayout>

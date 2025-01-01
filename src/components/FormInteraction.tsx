@@ -2,78 +2,90 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import gsap from 'gsap'
 import './css/index.css'
 
-// 手形图标组件
+// 手形图标组件，用于表示交互的手势
 const Hand = React.forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div className="hand" ref={ref}>
-      <img src="/assets/FormInteraction/hand.png" alt="hand" />
+      {' '}
+      {/* 用于手形的容器 */}
+      <img src="/assets/FormInteraction/hand.png" alt="hand" /> {/* 手形图片 */}
     </div>
   )
 })
 
-// 表单行组件
+// 表单行组件，负责显示每一行的输入框及其动画效果
 interface RowProps {
-  label: string
-  ifFinish: number
-  onFocus: (ele: HTMLInputElement) => void
-  onBlur: (ele: HTMLInputElement) => void
+  label: string // 输入框的标签
+  ifFinish: number // 输入框是否完成标记
+  onFocus: (ele: HTMLInputElement) => void // 聚焦事件处理函数
+  onBlur: (ele: HTMLInputElement) => void // 失焦事件处理函数
 }
 
 const Row: React.FC<RowProps> = ({ label, ifFinish, onFocus, onBlur }) => {
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null) // 引用当前行的输入框
 
   return (
-    <div className="row" data_text={label}>
-      <input ref={inputRef} className="row_input" if_finish={String(ifFinish)} onFocus={() => inputRef.current && onFocus(inputRef.current)} onBlur={() => inputRef.current && onBlur(inputRef.current)} />
+    <div className="row" data-text={label}>
+      {' '}
+      {/* 包裹输入框和选择框的容器 */}
+      <input
+        ref={inputRef} // 输入框的引用
+        className="row_input"
+        if-finish={String(ifFinish)} // 设置是否完成的标记
+        onFocus={() => inputRef.current && onFocus(inputRef.current)} // 聚焦事件
+        onBlur={() => inputRef.current && onBlur(inputRef.current)} // 失焦事件
+      />
+      {/* SVG 勾选框，用于表示完成状态 */}
       <svg className="row_selectbox" width="125" height="92" viewBox="0 0 125 92">
-        <path d="M19,21H85V87H19V21Z" />
-        <path d="M14,42L40,78l71-64" />
+        <path d="M19,21H85V87H19V21Z" /> {/* 矩形框 */}
+        <path d="M14,42L40,78l71-64" /> {/* 勾选路径 */}
       </svg>
     </div>
   )
 }
 
-// 主组件
+// 主组件，包含表单行和交互逻辑
 const FormInteraction: React.FC = () => {
+  // 表单数据，每一行为一个输入框
   const [rows] = useState([
     { label: 'your name', ifFinish: 0 },
     { label: 'your age', ifFinish: 0 },
     { label: 'your gender', ifFinish: 0 },
     { label: 'your email', ifFinish: 0 },
   ])
-  const handRef = useRef<HTMLDivElement>(null)
-  const [timeline, setTimeline] = useState<gsap.core.Timeline | null>(null)
-  const [offsetDistance, setOffsetDistance] = useState(0)
 
-  // 初始化 GSAP timeline
+  const handRef = useRef<HTMLDivElement>(null) // 引用手形组件
+  const [timeline, setTimeline] = useState<gsap.core.Timeline | null>(null) // GSAP 时间线
+  const [offsetDistance, setOffsetDistance] = useState(0) // 手形与输入框的垂直偏移
+
+  // 初始化 GSAP 时间线
   useEffect(() => {
-    setTimeline(gsap.timeline())
+    setTimeline(gsap.timeline()) // 创建 GSAP 时间线实例
   }, [])
 
-  // 计算手指初始位置
+  // 计算手形初始位置
   const resize = useCallback(() => {
-    if (!handRef.current) return
+    if (!handRef.current) return // 如果手形组件未加载，直接返回
+
+    // 获取第一个输入框和选择框的 DOM 信息
     const firstInput = document.querySelector('.row_input')
     const firstSelectBox = document.querySelector('.row_selectbox')
     if (!firstInput || !firstSelectBox) return
 
+    // 计算选择框的高度和输入框的垂直偏移
     const selectBoxRect = firstSelectBox.getBoundingClientRect()
     const inputRect = firstInput.getBoundingClientRect()
 
     const newOffsetDistance = selectBoxRect.height / 3
-    setOffsetDistance(newOffsetDistance)
+    setOffsetDistance(newOffsetDistance) // 更新偏移距离
 
-    // 设置手的大小
+    // 设置手形的大小和位置
     handRef.current.style.height = `${selectBoxRect.height * 5}px`
-
-    // 设置手的水平位置（对齐到勾选框）
-    handRef.current.style.left = `${selectBoxRect.left}px`
-
-    // 设置手的垂直位置（对齐到第一个输入框）
-    handRef.current.style.top = `${inputRect.top - handRef.current.offsetHeight / 2 + newOffsetDistance + window.scrollY}px`
+    handRef.current.style.left = `${selectBoxRect.left}px` // 水平对齐选择框
+    handRef.current.style.top = `${inputRect.top - handRef.current.offsetHeight / 2 + newOffsetDistance + window.scrollY}px` // 垂直对齐输入框
   }, [])
 
-  // 处理输入框聚焦
+  // 处理输入框聚焦事件
   const handleFocus = useCallback(
     (ele: HTMLInputElement) => {
       if (!timeline || !handRef.current) return
@@ -82,10 +94,10 @@ const FormInteraction: React.FC = () => {
       const selectBoxRect = ele.nextElementSibling?.getBoundingClientRect()
       if (!selectBoxRect) return
 
-      // 更新手的位置到当前输入框
+      // 更新手形的位置到当前输入框
       timeline.to(handRef.current, {
-        top: `${inputRect.top - handRef.current.offsetHeight / 2 + offsetDistance + window.scrollY}px`,
-        left: `${selectBoxRect.left}px`, // 确保水平位置对齐到勾选框
+        top: `${inputRect.top - handRef.current.offsetHeight / 2 + offsetDistance + window.scrollY}px`, // 垂直位置
+        left: `${selectBoxRect.left}px`, // 水平位置对齐选择框
         duration: 0.4,
         ease: 'linear',
       })
@@ -93,10 +105,10 @@ const FormInteraction: React.FC = () => {
     [timeline, offsetDistance]
   )
 
-  // 处理输入完成动画
+  // 处理输入完成时的动画
   const inputFinishAnimate = (ele: HTMLInputElement) => {
     if (!timeline || !handRef.current) return
-    const svg = ele.nextElementSibling as SVGElement
+    const svg = ele.nextElementSibling as SVGElement // 获取对应的选择框
     timeline
       .to(handRef.current, {
         rotate: '5deg',
@@ -105,7 +117,7 @@ const FormInteraction: React.FC = () => {
         duration: 0.2,
         ease: 'linear',
         onStart: () => {
-          svg.classList.add('row_selectbox_finish')
+          svg.classList.add('row_selectbox_finish') // 添加完成样式
         },
       })
       .to(handRef.current, {
@@ -124,7 +136,7 @@ const FormInteraction: React.FC = () => {
       })
   }
 
-  // 处理取消完成动画
+  // 处理取消完成时的动画
   const inputUnfinishAnimate = (ele: HTMLInputElement) => {
     if (!timeline || !handRef.current) return
     const svg = ele.nextElementSibling as SVGElement
@@ -141,19 +153,21 @@ const FormInteraction: React.FC = () => {
         duration: 0.2,
         ease: 'linear',
         onStart: () => {
-          svg.classList.remove('row_selectbox_finish')
+          svg.classList.remove('row_selectbox_finish') // 移除完成样式
         },
       })
   }
 
-  // 处理输入框失焦
+  // 处理输入框失焦事件
   const handleBlur = (ele: HTMLInputElement) => {
-    const ifFinish = parseInt(ele.getAttribute('if_finish') || '0')
+    const ifFinish = parseInt(ele.getAttribute('if_finish') || '0') // 获取是否完成的标记
     if (ele.value !== '' && !ifFinish) {
+      // 如果输入框有内容且未完成
       ele.setAttribute('if_finish', '1')
       inputFinishAnimate(ele)
     }
     if (ele.value === '' && ifFinish) {
+      // 如果输入框内容为空且已完成
       ele.setAttribute('if_finish', '0')
       inputUnfinishAnimate(ele)
     }
@@ -173,10 +187,12 @@ const FormInteraction: React.FC = () => {
 
   return (
     <div className="form-interaction-container">
+      {' '}
+      {/* 表单交互的容器 */}
       {rows.map((row, index) => (
         <Row key={index} label={row.label} ifFinish={row.ifFinish} onFocus={handleFocus} onBlur={handleBlur} />
       ))}
-      <Hand ref={handRef} />
+      <Hand ref={handRef} /> {/* 渲染手形组件 */}
     </div>
   )
 }
